@@ -1,12 +1,10 @@
 # include "formule.h"
-float Mensualite(int arg_1, int arg_2, float arg_3)
+float Mensualite(int Somme_emprunt, int Nbr_annee, float Taux_annuel)
 {
-   m_Borrowed_capital = arg_1;
-   m_Nbr_years = arg_2;
-   m_Nbr_months = arg_2*12;
-   m_Annual_rate = arg_3;
-   m_Monthly_rate = arg_3/12/100;
-   /* [US] Calculating the monthly payment according to the amount borrowed
+   // Variables
+   int Nbr_mois = Nbr_annee*12;
+   float Taux_mensuel = Taux_annuel/12/100;
+   // [US] Calculating the monthly payment according to the amount borrowed
    // [FR] Calcule de la mensualité en fonction du montant emprunté
    //
    // [US] L = Loan amount
@@ -26,24 +24,37 @@ float Mensualite(int arg_1, int arg_2, float arg_3)
    // Mensualité = -----------------
    //                            -N
    //              1 - ( 1 + T )
-   */
+   //
    int I;
-   float Power = 1 + m_Monthly_rate;
-   for ( I = 1; I < m_Nbr_months; I++)
+   float Puissance = 1 + Taux_mensuel;
+   for ( I = 1; I < Nbr_mois; I++)
    {
-      Power *= (1 + m_Monthly_rate );
+      Puissance *= (1 + Taux_mensuel );
    }
-   Power = 1 / Power;
-   m_Monthly = ( m_Borrowed_capital * m_Monthly_rate ) / ( 1 - Power );
+   Puissance = 1 / Puissance;
+   return( Somme_emprunt * Taux_mensuel ) / ( 1 - Puissance );
 }
 
-float Interet()
+float Mensualite_max( int Paie_1, int Paie_2, int Nbr_annee, float Taux_annuel)
 {
-   return (( m_Monthly * m_Nbr_months ) - m_Borrowed_capital );
+   return ( ( Paie_1 + Paie_2 ) * 0.33 );
 }
 
-float Mensualite_max( int Pay_1, int Pay_2)
+float Endettement( int Paie_1, int Paie_2, int Somme_emprunt, int Nbr_annee, 
+  float Taux_annuel)
 {
+   float Recup_mensualite = 0;
+   float Endettement = 0;
+   Recup_mensualite = Mensualite(Somme_emprunt, Nbr_annee, Taux_annuel);
+   Endettement = Recup_mensualite / ( (Paie_1 + Paie_2) / 100);
+   return(Endettement);
+}
+
+float Emprunt_max( int Paie_1, int Paie_2,int Nbr_annee, float Taux_annuel )
+{
+   // Variables
+   int Nbr_mois = Nbr_annee*12;
+   float Taux_mensuel = Taux_annuel/12/100;
    /* [US] Calculating the maximum borrowing capacity
    // [FR] Calcule la capacité d'emprunt maximale
    //
@@ -64,19 +75,27 @@ float Mensualite_max( int Pay_1, int Pay_2)
    //                                   MM  
    */
    int I;
-   float Max_monthly = ( ( Pay_1 + Pay_2 ) * 0.33 );
-   float Power = 1 + m_Monthly_rate;
-   for ( I = 1; I < m_Nbr_months; I++)
+   float Mensualite_max = ( ( Paie_1 + Paie_2 ) * 0.33 );
+   float Puissance = 1 + Taux_mensuel;
+   for ( I = 1; I < Nbr_mois; I++)
    {
-      Power *= (1 + m_Monthly_rate );
+      Puissance *= (1 + Taux_mensuel );
    }
-   Power = 1 / Power;
-   return ( Max_monthly * ( 1 - Power ) / ( m_Monthly_rate ) );
+   Puissance = 1 / Puissance;
+   return ( Mensualite_max * ( 1 - Puissance ) / ( Taux_mensuel ) );
+}
+float Interet(int Somme_emprunt, int Nbr_annee, float Taux_annuel)
+{
+   // Variables
+   int Nbr_mois = Nbr_annee*12;
+   float Recup_mensualite = Mensualite( Somme_emprunt, Nbr_annee, Taux_annuel);
+   return (( Recup_mensualite * Nbr_mois ) - Somme_emprunt );
 }
 
+/*
 float Amortissement(int No_Monthly )
 {
-   /* [FR] calcule l'amortissement de la première mensualité 
+   // [FR] calcule l'amortissement de la première mensualité 
    // [US] calculating the amortization of the first monthly 
    //
    // [US] BC = Borrowed Capital
@@ -96,7 +115,7 @@ float Amortissement(int No_Monthly )
    // 1er amortissement = ----------------
    //                              N
    //                     (1 + TM )  - 1
-    */
+   //
    float first_maturity_amortization, I;
    float Power_2 = 1 + m_Monthly_rate;
    for ( I = 1; I < m_Nbr_months; I++)
@@ -111,7 +130,7 @@ float Amortissement(int No_Monthly )
    }
    else
    {
-      /* [US] calculating amortization of the nth monthly p 
+      // [US] calculating amortization of the nth monthly p 
       // [FR] calcule l'amortissement de la p enième mensualité 
       //
       // [US] BC = Borrowed Capital
@@ -128,7 +147,7 @@ float Amortissement(int No_Monthly )
       //
       // P nième amortissement =( 1 + TM ) x A
       //
-      */                              
+      //                              
       Power_2 = 1 + m_Monthly_rate;
       for ( I = 1; I < No_Monthly; I++)
       {
@@ -140,7 +159,7 @@ float Amortissement(int No_Monthly )
 
 float Capital_rembourser(int No_Monthly)
 {
-   /* [FR] calcule le capital remboursé après la p nième mensualité 
+   // [FR] calcule le capital remboursé après la p nième mensualité 
    // [US] calculating the capital repaid after the nth monthly p 
    //
    // [US] BC = Borrowed Capital
@@ -164,7 +183,7 @@ float Capital_rembourser(int No_Monthly)
    // Rembourser = C x ---------------
    //                            N
    //                  ( 1 + TM ) - 1
-   */
+   //
    int I;
    float Power = (1 + m_Monthly_rate);
    float Power_2 = Power;
@@ -177,4 +196,4 @@ float Capital_rembourser(int No_Monthly)
       Power_2 *= 1 + m_Monthly_rate;
    }
    return ( m_Borrowed_capital * (( Power - 1) / ( Power_2 - 1 )) );
-}
+}*/
