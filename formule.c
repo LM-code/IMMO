@@ -92,9 +92,12 @@ float Interet(int Somme_emprunt, int Nbr_annee, float Taux_annuel)
    return (( Recup_mensualite * Nbr_mois ) - Somme_emprunt );
 }
 
-/*
-float Amortissement(int No_Monthly )
+
+float Amortissement(int Somme_emprunt, int Nbr_annee, float Taux_annuel, int Num_Mensualite )
 {
+   // Variables
+   int Nbr_mois = Nbr_annee*12;
+   float Taux_mensuel = Taux_annuel/12/100;
    // [FR] calcule l'amortissement de la première mensualité 
    // [US] calculating the amortization of the first monthly 
    //
@@ -116,17 +119,17 @@ float Amortissement(int No_Monthly )
    //                              N
    //                     (1 + TM )  - 1
    //
-   float first_maturity_amortization, I;
-   float Power_2 = 1 + m_Monthly_rate;
-   for ( I = 1; I < m_Nbr_months; I++)
+   float Premier_num_amortissement, I;
+   float Puissance_2 = 1 + Taux_mensuel;
+   for ( I = 1; I < Nbr_mois; I++)
    {
-      Power_2 *= 1 + m_Monthly_rate;
+      Puissance_2 *= 1 + Taux_mensuel;
    }
-   first_maturity_amortization = ( m_Borrowed_capital * m_Monthly_rate ) 
-   / ( Power_2 - 1 );
-   if ( No_Monthly == 1 )
+   Premier_num_amortissement = ( Somme_emprunt * Taux_mensuel ) 
+   / ( Puissance_2 - 1 );
+   if ( Num_Mensualite == 1 )
    {
-      return (first_maturity_amortization);
+      return (Premier_num_amortissement);
    }
    else
    {
@@ -148,17 +151,20 @@ float Amortissement(int No_Monthly )
       // P nième amortissement =( 1 + TM ) x A
       //
       //                              
-      Power_2 = 1 + m_Monthly_rate;
-      for ( I = 1; I < No_Monthly; I++)
+      Puissance_2 = 1 + Taux_mensuel;
+      for ( I = 1; I < Num_Mensualite; I++)
       {
-         Power_2 *=(1 + m_Monthly_rate );
+         Puissance_2 *=(1 + Taux_mensuel );
       }
-      return ( Power_2  * first_maturity_amortization );
+      return ( Puissance_2  * Premier_num_amortissement );
    }
 }
 
-float Capital_rembourser(int No_Monthly)
+float Capital_rembourser(int Somme_emprunt, int Nbr_annee, float Taux_annuel, int Num_Mensualite )
 {
+   // Variables
+   int Nbr_mois = Nbr_annee*12;
+   float Taux_mensuel = Taux_annuel/12/100;
    // [FR] calcule le capital remboursé après la p nième mensualité 
    // [US] calculating the capital repaid after the nth monthly p 
    //
@@ -185,15 +191,15 @@ float Capital_rembourser(int No_Monthly)
    //                  ( 1 + TM ) - 1
    //
    int I;
-   float Power = (1 + m_Monthly_rate);
-   float Power_2 = Power;
-   for ( I = 1; I < No_Monthly; I++)
+   float Puissance = (1 + Taux_mensuel);
+   float Puissance_2 = Puissance;
+   for ( I = 1; I < Num_Mensualite; I++)
    {
-      Power *= 1 + m_Monthly_rate;
+      Puissance *= 1 + Taux_mensuel;
    }
-   for ( I = 1; I < m_Nbr_months; I++)
+   for ( I = 1; I < Nbr_mois; I++)
    {
-      Power_2 *= 1 + m_Monthly_rate;
+      Puissance_2 *= 1 + Taux_mensuel;
    }
-   return ( m_Borrowed_capital * (( Power - 1) / ( Power_2 - 1 )) );
-}*/
+   return ( Somme_emprunt * (( Puissance - 1) / ( Puissance_2 - 1 )) );
+}

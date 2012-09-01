@@ -13,6 +13,7 @@ struct ELEMENT
 	GtkWidget *p_Selecteur[6];
 	GtkWidget *p_Bouton[2];
    GtkWidget *p_Etiq[20];
+   GtkListStore *p_Modele;
 };
 typedef struct ELEMENT ELEMENT;
 

@@ -4,6 +4,7 @@
 #include <glib/gprintf.h>
 #include "fenetre_principale.h"
 #include "formule.h"
+#include "list.h"
 
 void fenetre_principale( ELEMENT *Element )
 {
@@ -51,17 +52,17 @@ void fenetre_principale( ELEMENT *Element )
       gtk_spin_button_set_value
          (GTK_SPIN_BUTTON(Element -> p_Selecteur[4]),100000);
    // création des étiquettes
-      Element -> p_Etiq[0] = gtk_label_new("Paie du 1er emprunteur : ");
+      Element -> p_Etiq[0] = gtk_label_new("Salaire net emprunteur n°1 : ");
       gtk_misc_set_alignment(GTK_MISC(Element -> p_Etiq[0]),1.0,0.5);
-      Element -> p_Etiq[1] = gtk_label_new("Paie du 2ème emprunteur : ");
+      Element -> p_Etiq[1] = gtk_label_new("Salaire net emprunteur n°2 : ");
       gtk_misc_set_alignment(GTK_MISC(Element -> p_Etiq[1]),1.0,0.5);
       Element -> p_Etiq[2] = gtk_label_new("   €   ");
       Element -> p_Etiq[3] = gtk_label_new("   €   ");
-      Element -> p_Etiq[4] = gtk_label_new("Taux d'intérêt : ");
+      Element -> p_Etiq[4] = gtk_label_new("Taux d'intérêt annuel : ");
       gtk_misc_set_alignment(GTK_MISC(Element -> p_Etiq[4]),1.0,0.5);
       Element -> p_Etiq[5] = gtk_label_new("Durée de l'emprunt : ");
       gtk_misc_set_alignment(GTK_MISC(Element -> p_Etiq[5]),1.0,0.5);
-      Element -> p_Etiq[6] = gtk_label_new(" Somme empruntée : ");
+      Element -> p_Etiq[6] = gtk_label_new("Somme empruntée : ");
       gtk_misc_set_alignment(GTK_MISC(Element -> p_Etiq[6]),1.0,0.5);
       Element -> p_Etiq[7] = gtk_label_new(" % ");
       Element -> p_Etiq[8] = gtk_label_new(" ans ");
@@ -167,16 +168,17 @@ void Calcul_pret ( GtkWidget *p_Widget, gpointer data )
    // Conversion des datas dans une structure ELEMENT
    ELEMENT *Recup = data;
    // Variables récupération des données
+   gint i = 0;
    gint Paie_1 = 0;
    gint Paie_2 = 0;
    gfloat Taux_interet = 0;
    gint Duree_emprunt = 0;
    gint Somme_emprunt = 0;
-   float Montant_Mensualite = 0;
-   float Montant_Mensualite_max = 0;
-   float Pour_endettement = 0;
-   float Capacite_emprunt = 0;
-   float Montant_Interet = 0;
+   float Montant_mensualite = 0;
+   float Montant = 0;
+   float Mensualite_amortis = 0;
+   float Mensualite_interet = 0;
+   float Restant = 0;
    gchar *p_text_1 = NULL;
 
    // Récupération des informations
@@ -191,37 +193,51 @@ void Calcul_pret ( GtkWidget *p_Widget, gpointer data )
    Somme_emprunt = gtk_spin_button_get_value_as_int 
       (GTK_SPIN_BUTTON (Recup -> p_Selecteur[4]));
  
-   g_printf("paie emprunteur 1 = %d\n",Paie_1);
-   g_printf("paie emprunteur 2 = %d\n",Paie_2);
-	g_printf("Taux interet = %f\n",Taux_interet);
-   g_printf("Durée de l'emprunt = %d\n",Duree_emprunt);
-   g_printf("Somme empruntée = %d\n",Somme_emprunt);
    // Calcule et affichae la mensualité
-   Montant_Mensualite = Mensualite(Somme_emprunt, Duree_emprunt,Taux_interet);
-   g_printf("Mensualité = %f\n",Montant_Mensualite);
-	p_text_1 = g_strdup_printf("%.2f €",Montant_Mensualite);
+   Montant_mensualite = Mensualite(Somme_emprunt, Duree_emprunt,Taux_interet);
+	p_text_1 = g_strdup_printf("%.2f €",Montant_mensualite);
 	gtk_label_set_text(GTK_LABEL (Recup->p_Etiq[15]),p_text_1);
    // Calcule et affiche le montant maximal de la mensualité
-   Montant_Mensualite_max = Mensualite_max(Paie_1, Paie_2, Duree_emprunt,
+   Montant = Mensualite_max(Paie_1, Paie_2, Duree_emprunt,
       Taux_interet);
-   g_printf("Mensualité maxi = %f\n",Montant_Mensualite_max);
-	p_text_1 = g_strdup_printf("%.2f €",Montant_Mensualite_max);
+	p_text_1 = g_strdup_printf("%.2f €",Montant);
 	gtk_label_set_text(GTK_LABEL (Recup->p_Etiq[16]),p_text_1);
    // Calcule et affiche le pourcentage d'endettement
-   Pour_endettement = Endettement(Paie_1, Paie_2, Somme_emprunt, 
+   Montant = Endettement(Paie_1, Paie_2, Somme_emprunt, 
       Duree_emprunt, Taux_interet);
-   g_printf("Endettement = %f\n",Pour_endettement);
-	p_text_1 = g_strdup_printf("%.2f %%",Pour_endettement);
+	p_text_1 = g_strdup_printf("%.2f %%",Montant);
 	gtk_label_set_text(GTK_LABEL (Recup->p_Etiq[17]),p_text_1);
    // Calcule et affiche la capacité d'emprunt
-   Capacite_emprunt = Emprunt_max(Paie_1, Paie_2, Duree_emprunt,
+   Montant = Emprunt_max(Paie_1, Paie_2, Duree_emprunt,
       Taux_interet);
-   g_printf("Capacité = %f\n",Capacite_emprunt);
-	p_text_1 = g_strdup_printf("%.0f €",Capacite_emprunt);
+	p_text_1 = g_strdup_printf("%.0f €",Montant);
 	gtk_label_set_text(GTK_LABEL (Recup->p_Etiq[18]),p_text_1);
    // Calcule et affiche Le montant des intérêts
-   Montant_Interet = Interet(Somme_emprunt, Duree_emprunt,Taux_interet);
-   g_printf("Interet = %f\n",Montant_Interet);
-	p_text_1 = g_strdup_printf("%.0f €",Montant_Interet);
+   Montant = Interet(Somme_emprunt, Duree_emprunt,Taux_interet);
+	p_text_1 = g_strdup_printf("%.0f €",Montant);
 	gtk_label_set_text(GTK_LABEL (Recup->p_Etiq[19]),p_text_1);
+   // Efface le tableau
+	if (GTK_IS_LIST_STORE(Recup->p_Modele)) 
+   {
+      gtk_list_store_clear(GTK_LIST_STORE(Recup->p_Modele));
+	}
+// Remplit le tableau
+   for( i = 1; i < ( Duree_emprunt * 12 ) + 1; i++ ) 
+   {
+   // Calcule l'amortissement
+   Mensualite_amortis = Amortissement(Somme_emprunt, Duree_emprunt,
+      Taux_interet,i);
+   Mensualite_interet = Montant_mensualite - Mensualite_amortis;
+   Restant = Capital_rembourser(Somme_emprunt, Duree_emprunt,
+      Taux_interet,i);
+      Ajout_list(
+         Recup -> p_Modele,
+			i,
+			Montant_mensualite,
+			Mensualite_interet,
+         Mensualite_amortis,
+         Somme_emprunt - Restant
+      );
+   }
+   // Libére la mémoire
 }
