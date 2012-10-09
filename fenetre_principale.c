@@ -34,7 +34,7 @@ void fenetre_principale( ELEMENT *Element )
    // création des tableaux
       p_Tableau[0] = gtk_table_new ( 3,2,FALSE );
       p_Tableau[1] = gtk_table_new ( 3,3,FALSE );
-      p_Tableau[2] = gtk_table_new ( 3,5,FALSE );
+      p_Tableau[2] = gtk_table_new ( 3,6,FALSE );
    // création des sélecteurs numériques
       Element -> p_Selecteur[0] = gtk_spin_button_new_with_range (10,99999,10);
       gtk_spin_button_set_value
@@ -67,21 +67,25 @@ void fenetre_principale( ELEMENT *Element )
       Element -> p_Etiq[7] = gtk_label_new(" % ");
       Element -> p_Etiq[8] = gtk_label_new(" ans ");
       Element -> p_Etiq[9] = gtk_label_new("   €   ");
-      Element -> p_Etiq[10] = gtk_label_new(" Votre mensualité est de ");
+      Element -> p_Etiq[10] = gtk_label_new(" Votre mensualité :");
       gtk_misc_set_alignment(GTK_MISC(Element -> p_Etiq[10]),1.0,0.5);
-      Element -> p_Etiq[11] = gtk_label_new(" Votre mensualité maxi est de ");
+      Element -> p_Etiq[11] = gtk_label_new(" Votre mensualité maxi :");
       gtk_misc_set_alignment(GTK_MISC(Element -> p_Etiq[11]),1.0,0.5);
-      Element -> p_Etiq[12] = gtk_label_new(" Votre endettement est de ");
+      Element -> p_Etiq[12] = gtk_label_new(" Votre endettement :");
       gtk_misc_set_alignment(GTK_MISC(Element -> p_Etiq[12]),1.0,0.5);
-      Element -> p_Etiq[13] = gtk_label_new(" Votre capacité d'emprunt est de ");
+      Element -> p_Etiq[13] = gtk_label_new(" Votre capacité d'emprunt :");
       gtk_misc_set_alignment(GTK_MISC(Element -> p_Etiq[13]),1.0,0.5);
-      Element -> p_Etiq[14] = gtk_label_new(" Le montant des intérêts ");
+      Element -> p_Etiq[14] = gtk_label_new(" Le montant des intérêts :");
       gtk_misc_set_alignment(GTK_MISC(Element -> p_Etiq[14]),1.0,0.5);
-      Element -> p_Etiq[15] = gtk_label_new(" 0000 € ");
+      Element -> p_Etiq[15] = gtk_label_new(" Le coût total du crédit :");
+      gtk_misc_set_alignment(GTK_MISC(Element -> p_Etiq[15]),1.0,0.5);
       Element -> p_Etiq[16] = gtk_label_new(" 0000 € ");
-      Element -> p_Etiq[17] = gtk_label_new(" 00 % ");
-      Element -> p_Etiq[18] = gtk_label_new("   €   ");
+      Element -> p_Etiq[17] = gtk_label_new(" 0000 € ");
+      Element -> p_Etiq[18] = gtk_label_new(" 00 % ");
       Element -> p_Etiq[19] = gtk_label_new("   €   ");
+      Element -> p_Etiq[20] = gtk_label_new("   €   ");
+      Element -> p_Etiq[21] = gtk_label_new("   €   ");
+      Element -> p_Etiq[22] = gtk_label_new("- TABLEAU D'AMORTISSEMENT -");
    // création des boites à bouton
       p_Bouton_boite[0] = gtk_hbutton_box_new();
    // création des boutons
@@ -95,6 +99,8 @@ void fenetre_principale( ELEMENT *Element )
    gtk_window_set_default_size(GTK_WINDOW(Element -> p_Fenetre[0]), 
      LARGEUR_FENETRE, HAUTEUR_FENETRE);
    gtk_window_set_title(GTK_WINDOW(Element -> p_Fenetre[0]),TITRE_FENETRE);
+   gtk_window_set_icon_from_file(GTK_WINDOW(Element -> p_Fenetre[0]),
+      ICONE,NULL);
 
 // Assemblage des boites 
 	gtk_container_add(GTK_CONTAINER(Element -> p_Fenetre[0]), Element -> p_Vboite[0]);
@@ -139,12 +145,12 @@ void fenetre_principale( ELEMENT *Element )
 	gtk_box_pack_start(GTK_BOX(Element -> p_Vboite[2]), p_Cadre[2], TRUE,TRUE,5);
 	gtk_container_add(GTK_CONTAINER(p_Cadre[2]), p_Tableau[2]);
 // troisième tableau 
-   for (i = 10; i < 15 ; i++ )
+   for (i = 10; i < 16 ; i++ )
    {
      gtk_table_attach(GTK_TABLE(p_Tableau[2]), Element -> p_Etiq[i],
         0, 1, i-10, i-9,GTK_EXPAND | GTK_FILL ,GTK_EXPAND,
         5, 5);
-     gtk_table_attach(GTK_TABLE(p_Tableau[2]), Element -> p_Etiq[i+5],
+     gtk_table_attach(GTK_TABLE(p_Tableau[2]), Element -> p_Etiq[i+6],
         1, 3, i-10, i-9,GTK_EXPAND | GTK_FILL ,GTK_EXPAND,
         5, 5);
    }
@@ -154,6 +160,10 @@ void fenetre_principale( ELEMENT *Element )
 	gtk_box_pack_start(GTK_BOX(p_Bouton_boite[0]), Element -> p_Bouton[0], FALSE,FALSE,5);
 	gtk_box_pack_end(GTK_BOX(p_Bouton_boite[0]), Element -> p_Bouton[1], FALSE,FALSE,5);
 // Définition des callbacks
+     g_signal_connect (
+        G_OBJECT (Element -> p_Fenetre[0]), 
+        "destroy",G_CALLBACK(gtk_main_quit),NULL
+        );
      g_signal_connect (
         G_OBJECT (Element -> p_Bouton[1]), 
         "clicked",G_CALLBACK(gtk_main_quit),NULL
@@ -196,26 +206,29 @@ void Calcul_pret ( GtkWidget *p_Widget, gpointer data )
    // Calcule et affichae la mensualité
    Montant_mensualite = Mensualite(Somme_emprunt, Duree_emprunt,Taux_interet);
 	p_text_1 = g_strdup_printf("%.2f €",Montant_mensualite);
-	gtk_label_set_text(GTK_LABEL (Recup->p_Etiq[15]),p_text_1);
+	gtk_label_set_text(GTK_LABEL (Recup->p_Etiq[16]),p_text_1);
    // Calcule et affiche le montant maximal de la mensualité
    Montant = Mensualite_max(Paie_1, Paie_2, Duree_emprunt,
       Taux_interet);
 	p_text_1 = g_strdup_printf("%.2f €",Montant);
-	gtk_label_set_text(GTK_LABEL (Recup->p_Etiq[16]),p_text_1);
+	gtk_label_set_text(GTK_LABEL (Recup->p_Etiq[17]),p_text_1);
    // Calcule et affiche le pourcentage d'endettement
    Montant = Endettement(Paie_1, Paie_2, Somme_emprunt, 
       Duree_emprunt, Taux_interet);
 	p_text_1 = g_strdup_printf("%.2f %%",Montant);
-	gtk_label_set_text(GTK_LABEL (Recup->p_Etiq[17]),p_text_1);
+	gtk_label_set_text(GTK_LABEL (Recup->p_Etiq[18]),p_text_1);
    // Calcule et affiche la capacité d'emprunt
    Montant = Emprunt_max(Paie_1, Paie_2, Duree_emprunt,
       Taux_interet);
 	p_text_1 = g_strdup_printf("%.0f €",Montant);
-	gtk_label_set_text(GTK_LABEL (Recup->p_Etiq[18]),p_text_1);
+	gtk_label_set_text(GTK_LABEL (Recup->p_Etiq[19]),p_text_1);
    // Calcule et affiche Le montant des intérêts
    Montant = Interet(Somme_emprunt, Duree_emprunt,Taux_interet);
 	p_text_1 = g_strdup_printf("%.0f €",Montant);
-	gtk_label_set_text(GTK_LABEL (Recup->p_Etiq[19]),p_text_1);
+	gtk_label_set_text(GTK_LABEL (Recup->p_Etiq[20]),p_text_1);
+   // Calcule le coût du crédit
+	p_text_1 = g_strdup_printf("%.0f €",(Montant + Somme_emprunt) );
+	gtk_label_set_text(GTK_LABEL (Recup->p_Etiq[21]),p_text_1);
    // Efface le tableau
 	if (GTK_IS_LIST_STORE(Recup->p_Modele)) 
    {

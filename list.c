@@ -62,7 +62,7 @@ void create_list( ELEMENT *Element )
          (GTK_TREE_VIEW_COLUMN(p_Colonne),LARGEUR_COLONNE_4 );
       gtk_tree_view_column_set_alignment
          (GTK_TREE_VIEW_COLUMN(p_Colonne),0.5 );
-	// 4 ème colonne du tableau
+	// 5 ème colonne du tableau
       p_Cellule = gtk_cell_renderer_text_new();
       gtk_cell_renderer_set_alignment (p_Cellule,0.5,0.5);
       p_Colonne = gtk_tree_view_column_new_with_attributes
@@ -76,7 +76,9 @@ void create_list( ELEMENT *Element )
       gtk_tree_view_set_rules_hint(GTK_TREE_VIEW(p_Vue),TRUE);
 // assemblage 
    gtk_container_add (GTK_CONTAINER(p_Defilement),p_Vue);
-   gtk_box_pack_start (GTK_BOX(Element -> p_Vboite[0]),p_Defilement,TRUE,TRUE,5);
+   gtk_box_pack_start (GTK_BOX(Element -> p_Vboite[0]),
+      Element -> p_Etiq[22],FALSE,FALSE,0);
+   gtk_box_pack_start (GTK_BOX(Element -> p_Vboite[0]),p_Defilement,TRUE,TRUE,0);
 }
 void Ajout_list(GtkListStore *p_Modele, int Mois, float Mensualite, 
    float Interet, float Amortissement, float Restant)
