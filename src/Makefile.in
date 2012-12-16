@@ -14,6 +14,8 @@
 
 @SET_MAKE@
 
+# Définittion du programme et des fichiers sources
+
 srcdir = @srcdir@
 top_srcdir = @top_srcdir@
 VPATH = @srcdir@
@@ -34,7 +36,7 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-bin_PROGRAMS = Immo$(EXEEXT)
+bin_PROGRAMS = immo$(EXEEXT)
 subdir = src
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -47,12 +49,12 @@ CONFIG_CLEAN_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 binPROGRAMS_INSTALL = $(INSTALL_PROGRAM)
 PROGRAMS = $(bin_PROGRAMS)
-am_Immo_OBJECTS = Immo-main.$(OBJEXT) \
-	Immo-fenetre_principale.$(OBJEXT) Immo-formule.$(OBJEXT) \
-	Immo-list.$(OBJEXT)
-Immo_OBJECTS = $(am_Immo_OBJECTS)
+am_immo_OBJECTS = immo-main.$(OBJEXT) \
+	immo-fenetre_principale.$(OBJEXT) immo-formule.$(OBJEXT) \
+	immo-list.$(OBJEXT)
+immo_OBJECTS = $(am_immo_OBJECTS)
 am__DEPENDENCIES_1 =
-Immo_DEPENDENCIES = $(am__DEPENDENCIES_1)
+immo_DEPENDENCIES = $(am__DEPENDENCIES_1)
 DEFAULT_INCLUDES = -I. -I$(srcdir) -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
@@ -60,8 +62,8 @@ COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
 CCLD = $(CC)
 LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
-SOURCES = $(Immo_SOURCES)
-DIST_SOURCES = $(Immo_SOURCES)
+SOURCES = $(immo_SOURCES)
+DIST_SOURCES = $(immo_SOURCES)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
@@ -147,11 +149,11 @@ sbindir = @sbindir@
 sharedstatedir = @sharedstatedir@
 sysconfdir = @sysconfdir@
 target_alias = @target_alias@
-Immo_SOURCES = main.c fenetre_principale.c fenetre_principale.h\
+immo_SOURCES = main.c fenetre_principale.c fenetre_principale.h\
 					formule.c formule.h list.c list.h 
 
-Immo_LDADD = $(GTK_LIBS)
-Immo_CFLAGS = $(GTK_CFLAGS)
+immo_CFLAGS = $(GTK_CFLAGS)
+immo_LDADD = $(GTK_LIBS)
 CLEANFILES = *~
 all: all-am
 
@@ -209,9 +211,9 @@ uninstall-binPROGRAMS:
 
 clean-binPROGRAMS:
 	-test -z "$(bin_PROGRAMS)" || rm -f $(bin_PROGRAMS)
-Immo$(EXEEXT): $(Immo_OBJECTS) $(Immo_DEPENDENCIES) 
-	@rm -f Immo$(EXEEXT)
-	$(LINK) $(Immo_LDFLAGS) $(Immo_OBJECTS) $(Immo_LDADD) $(LIBS)
+immo$(EXEEXT): $(immo_OBJECTS) $(immo_DEPENDENCIES) 
+	@rm -f immo$(EXEEXT)
+	$(LINK) $(immo_LDFLAGS) $(immo_OBJECTS) $(immo_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -219,10 +221,10 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Immo-fenetre_principale.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Immo-formule.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Immo-list.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Immo-main.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/immo-fenetre_principale.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/immo-formule.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/immo-list.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/immo-main.Po@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	if $(COMPILE) -MT $@ -MD -MP -MF "$(DEPDIR)/$*.Tpo" -c -o $@ $<; \
@@ -238,61 +240,61 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(COMPILE) -c `$(CYGPATH_W) '$<'`
 
-Immo-main.o: main.c
-@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(Immo_CFLAGS) $(CFLAGS) -MT Immo-main.o -MD -MP -MF "$(DEPDIR)/Immo-main.Tpo" -c -o Immo-main.o `test -f 'main.c' || echo '$(srcdir)/'`main.c; \
-@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/Immo-main.Tpo" "$(DEPDIR)/Immo-main.Po"; else rm -f "$(DEPDIR)/Immo-main.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='main.c' object='Immo-main.o' libtool=no @AMDEPBACKSLASH@
+immo-main.o: main.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(immo_CFLAGS) $(CFLAGS) -MT immo-main.o -MD -MP -MF "$(DEPDIR)/immo-main.Tpo" -c -o immo-main.o `test -f 'main.c' || echo '$(srcdir)/'`main.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/immo-main.Tpo" "$(DEPDIR)/immo-main.Po"; else rm -f "$(DEPDIR)/immo-main.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='main.c' object='immo-main.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(Immo_CFLAGS) $(CFLAGS) -c -o Immo-main.o `test -f 'main.c' || echo '$(srcdir)/'`main.c
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(immo_CFLAGS) $(CFLAGS) -c -o immo-main.o `test -f 'main.c' || echo '$(srcdir)/'`main.c
 
-Immo-main.obj: main.c
-@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(Immo_CFLAGS) $(CFLAGS) -MT Immo-main.obj -MD -MP -MF "$(DEPDIR)/Immo-main.Tpo" -c -o Immo-main.obj `if test -f 'main.c'; then $(CYGPATH_W) 'main.c'; else $(CYGPATH_W) '$(srcdir)/main.c'; fi`; \
-@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/Immo-main.Tpo" "$(DEPDIR)/Immo-main.Po"; else rm -f "$(DEPDIR)/Immo-main.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='main.c' object='Immo-main.obj' libtool=no @AMDEPBACKSLASH@
+immo-main.obj: main.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(immo_CFLAGS) $(CFLAGS) -MT immo-main.obj -MD -MP -MF "$(DEPDIR)/immo-main.Tpo" -c -o immo-main.obj `if test -f 'main.c'; then $(CYGPATH_W) 'main.c'; else $(CYGPATH_W) '$(srcdir)/main.c'; fi`; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/immo-main.Tpo" "$(DEPDIR)/immo-main.Po"; else rm -f "$(DEPDIR)/immo-main.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='main.c' object='immo-main.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(Immo_CFLAGS) $(CFLAGS) -c -o Immo-main.obj `if test -f 'main.c'; then $(CYGPATH_W) 'main.c'; else $(CYGPATH_W) '$(srcdir)/main.c'; fi`
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(immo_CFLAGS) $(CFLAGS) -c -o immo-main.obj `if test -f 'main.c'; then $(CYGPATH_W) 'main.c'; else $(CYGPATH_W) '$(srcdir)/main.c'; fi`
 
-Immo-fenetre_principale.o: fenetre_principale.c
-@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(Immo_CFLAGS) $(CFLAGS) -MT Immo-fenetre_principale.o -MD -MP -MF "$(DEPDIR)/Immo-fenetre_principale.Tpo" -c -o Immo-fenetre_principale.o `test -f 'fenetre_principale.c' || echo '$(srcdir)/'`fenetre_principale.c; \
-@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/Immo-fenetre_principale.Tpo" "$(DEPDIR)/Immo-fenetre_principale.Po"; else rm -f "$(DEPDIR)/Immo-fenetre_principale.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='fenetre_principale.c' object='Immo-fenetre_principale.o' libtool=no @AMDEPBACKSLASH@
+immo-fenetre_principale.o: fenetre_principale.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(immo_CFLAGS) $(CFLAGS) -MT immo-fenetre_principale.o -MD -MP -MF "$(DEPDIR)/immo-fenetre_principale.Tpo" -c -o immo-fenetre_principale.o `test -f 'fenetre_principale.c' || echo '$(srcdir)/'`fenetre_principale.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/immo-fenetre_principale.Tpo" "$(DEPDIR)/immo-fenetre_principale.Po"; else rm -f "$(DEPDIR)/immo-fenetre_principale.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='fenetre_principale.c' object='immo-fenetre_principale.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(Immo_CFLAGS) $(CFLAGS) -c -o Immo-fenetre_principale.o `test -f 'fenetre_principale.c' || echo '$(srcdir)/'`fenetre_principale.c
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(immo_CFLAGS) $(CFLAGS) -c -o immo-fenetre_principale.o `test -f 'fenetre_principale.c' || echo '$(srcdir)/'`fenetre_principale.c
 
-Immo-fenetre_principale.obj: fenetre_principale.c
-@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(Immo_CFLAGS) $(CFLAGS) -MT Immo-fenetre_principale.obj -MD -MP -MF "$(DEPDIR)/Immo-fenetre_principale.Tpo" -c -o Immo-fenetre_principale.obj `if test -f 'fenetre_principale.c'; then $(CYGPATH_W) 'fenetre_principale.c'; else $(CYGPATH_W) '$(srcdir)/fenetre_principale.c'; fi`; \
-@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/Immo-fenetre_principale.Tpo" "$(DEPDIR)/Immo-fenetre_principale.Po"; else rm -f "$(DEPDIR)/Immo-fenetre_principale.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='fenetre_principale.c' object='Immo-fenetre_principale.obj' libtool=no @AMDEPBACKSLASH@
+immo-fenetre_principale.obj: fenetre_principale.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(immo_CFLAGS) $(CFLAGS) -MT immo-fenetre_principale.obj -MD -MP -MF "$(DEPDIR)/immo-fenetre_principale.Tpo" -c -o immo-fenetre_principale.obj `if test -f 'fenetre_principale.c'; then $(CYGPATH_W) 'fenetre_principale.c'; else $(CYGPATH_W) '$(srcdir)/fenetre_principale.c'; fi`; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/immo-fenetre_principale.Tpo" "$(DEPDIR)/immo-fenetre_principale.Po"; else rm -f "$(DEPDIR)/immo-fenetre_principale.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='fenetre_principale.c' object='immo-fenetre_principale.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(Immo_CFLAGS) $(CFLAGS) -c -o Immo-fenetre_principale.obj `if test -f 'fenetre_principale.c'; then $(CYGPATH_W) 'fenetre_principale.c'; else $(CYGPATH_W) '$(srcdir)/fenetre_principale.c'; fi`
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(immo_CFLAGS) $(CFLAGS) -c -o immo-fenetre_principale.obj `if test -f 'fenetre_principale.c'; then $(CYGPATH_W) 'fenetre_principale.c'; else $(CYGPATH_W) '$(srcdir)/fenetre_principale.c'; fi`
 
-Immo-formule.o: formule.c
-@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(Immo_CFLAGS) $(CFLAGS) -MT Immo-formule.o -MD -MP -MF "$(DEPDIR)/Immo-formule.Tpo" -c -o Immo-formule.o `test -f 'formule.c' || echo '$(srcdir)/'`formule.c; \
-@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/Immo-formule.Tpo" "$(DEPDIR)/Immo-formule.Po"; else rm -f "$(DEPDIR)/Immo-formule.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='formule.c' object='Immo-formule.o' libtool=no @AMDEPBACKSLASH@
+immo-formule.o: formule.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(immo_CFLAGS) $(CFLAGS) -MT immo-formule.o -MD -MP -MF "$(DEPDIR)/immo-formule.Tpo" -c -o immo-formule.o `test -f 'formule.c' || echo '$(srcdir)/'`formule.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/immo-formule.Tpo" "$(DEPDIR)/immo-formule.Po"; else rm -f "$(DEPDIR)/immo-formule.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='formule.c' object='immo-formule.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(Immo_CFLAGS) $(CFLAGS) -c -o Immo-formule.o `test -f 'formule.c' || echo '$(srcdir)/'`formule.c
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(immo_CFLAGS) $(CFLAGS) -c -o immo-formule.o `test -f 'formule.c' || echo '$(srcdir)/'`formule.c
 
-Immo-formule.obj: formule.c
-@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(Immo_CFLAGS) $(CFLAGS) -MT Immo-formule.obj -MD -MP -MF "$(DEPDIR)/Immo-formule.Tpo" -c -o Immo-formule.obj `if test -f 'formule.c'; then $(CYGPATH_W) 'formule.c'; else $(CYGPATH_W) '$(srcdir)/formule.c'; fi`; \
-@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/Immo-formule.Tpo" "$(DEPDIR)/Immo-formule.Po"; else rm -f "$(DEPDIR)/Immo-formule.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='formule.c' object='Immo-formule.obj' libtool=no @AMDEPBACKSLASH@
+immo-formule.obj: formule.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(immo_CFLAGS) $(CFLAGS) -MT immo-formule.obj -MD -MP -MF "$(DEPDIR)/immo-formule.Tpo" -c -o immo-formule.obj `if test -f 'formule.c'; then $(CYGPATH_W) 'formule.c'; else $(CYGPATH_W) '$(srcdir)/formule.c'; fi`; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/immo-formule.Tpo" "$(DEPDIR)/immo-formule.Po"; else rm -f "$(DEPDIR)/immo-formule.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='formule.c' object='immo-formule.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(Immo_CFLAGS) $(CFLAGS) -c -o Immo-formule.obj `if test -f 'formule.c'; then $(CYGPATH_W) 'formule.c'; else $(CYGPATH_W) '$(srcdir)/formule.c'; fi`
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(immo_CFLAGS) $(CFLAGS) -c -o immo-formule.obj `if test -f 'formule.c'; then $(CYGPATH_W) 'formule.c'; else $(CYGPATH_W) '$(srcdir)/formule.c'; fi`
 
-Immo-list.o: list.c
-@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(Immo_CFLAGS) $(CFLAGS) -MT Immo-list.o -MD -MP -MF "$(DEPDIR)/Immo-list.Tpo" -c -o Immo-list.o `test -f 'list.c' || echo '$(srcdir)/'`list.c; \
-@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/Immo-list.Tpo" "$(DEPDIR)/Immo-list.Po"; else rm -f "$(DEPDIR)/Immo-list.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='list.c' object='Immo-list.o' libtool=no @AMDEPBACKSLASH@
+immo-list.o: list.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(immo_CFLAGS) $(CFLAGS) -MT immo-list.o -MD -MP -MF "$(DEPDIR)/immo-list.Tpo" -c -o immo-list.o `test -f 'list.c' || echo '$(srcdir)/'`list.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/immo-list.Tpo" "$(DEPDIR)/immo-list.Po"; else rm -f "$(DEPDIR)/immo-list.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='list.c' object='immo-list.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(Immo_CFLAGS) $(CFLAGS) -c -o Immo-list.o `test -f 'list.c' || echo '$(srcdir)/'`list.c
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(immo_CFLAGS) $(CFLAGS) -c -o immo-list.o `test -f 'list.c' || echo '$(srcdir)/'`list.c
 
-Immo-list.obj: list.c
-@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(Immo_CFLAGS) $(CFLAGS) -MT Immo-list.obj -MD -MP -MF "$(DEPDIR)/Immo-list.Tpo" -c -o Immo-list.obj `if test -f 'list.c'; then $(CYGPATH_W) 'list.c'; else $(CYGPATH_W) '$(srcdir)/list.c'; fi`; \
-@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/Immo-list.Tpo" "$(DEPDIR)/Immo-list.Po"; else rm -f "$(DEPDIR)/Immo-list.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='list.c' object='Immo-list.obj' libtool=no @AMDEPBACKSLASH@
+immo-list.obj: list.c
+@am__fastdepCC_TRUE@	if $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(immo_CFLAGS) $(CFLAGS) -MT immo-list.obj -MD -MP -MF "$(DEPDIR)/immo-list.Tpo" -c -o immo-list.obj `if test -f 'list.c'; then $(CYGPATH_W) 'list.c'; else $(CYGPATH_W) '$(srcdir)/list.c'; fi`; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/immo-list.Tpo" "$(DEPDIR)/immo-list.Po"; else rm -f "$(DEPDIR)/immo-list.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='list.c' object='immo-list.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(Immo_CFLAGS) $(CFLAGS) -c -o Immo-list.obj `if test -f 'list.c'; then $(CYGPATH_W) 'list.c'; else $(CYGPATH_W) '$(srcdir)/list.c'; fi`
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(immo_CFLAGS) $(CFLAGS) -c -o immo-list.obj `if test -f 'list.c'; then $(CYGPATH_W) 'list.c'; else $(CYGPATH_W) '$(srcdir)/list.c'; fi`
 uninstall-info-am:
 
 ID: $(HEADERS) $(SOURCES) $(LISP) $(TAGS_FILES)

@@ -1,9 +1,7 @@
 [Desktop Entry]
-Encoding=UTF-8
-Name=Immo
-Comment=Simulation mortgage
-Exec=Immo
-Icon=immo.png
-Terminal=false
 Type=Application
-Categories=GNOME;GTK;Office;Finance;
+Exec=@PACKAGE@
+Name=@PACKAGE_NAME@
+Categories=Office;GTK
+Icon=@PACKAGE@
+Comment=Simulation mortgage

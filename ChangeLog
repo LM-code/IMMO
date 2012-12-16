@@ -1,6 +1,55 @@
-2012-11-11 
+commit 2e67da47705fcee2c47c2d9a9a95d768974a4dfe
+Author: LM_code <webmaster@super-annonce.fr>
+Date:   Mon Nov 12 21:26:43 2012 +0100
 
-  version 0.8.1:
+    [US] Using Autotools for generate the file ./configure
+    [FR] Utilisation des autotools pour generer le fichier ./configure
 
-	* [US] Started Log [FR] Commencement
+commit c2309ab1eac0ce181e5312e8e91ec139c23a64c0
+Author: LM_code <webmaster@super-annonce.fr>
+Date:   Tue Oct 9 02:15:27 2012 +0200
 
+    [US] update
+    [FR] mise \303\240 jour
+
+commit 12e5c02c01e2a8adb26bbeffa50c1b65cb7a259c
+Author: LM_code <webmaster@super-annonce.fr>
+Date:   Tue Oct 9 01:53:33 2012 +0200
+
+    [US] add file = immo.ico and add function callback destroy for the window
+    [FR] ajout fichier immo.ico et fonction callback destroy pour la fenetre
+
+commit 6454e2d7671c929d55c0697a6c2191fd0b010e27
+Author: LM_code <webmaster@super-annonce.fr>
+Date:   Sun Sep 30 11:06:42 2012 +0200
+
+    [US] add image program
+    [FR] Ajout d'image au programme
+
+commit 5017b5f577d4bb7610d848b502c621ea3aa41207
+Author: LM_code <webmaster@super-annonce.fr>
+Date:   Sat Sep 1 18:28:25 2012 +0200
+
+    [US]file formulas and display loan ready
+    [FR] fichier des formules et affichage du prêt okay
+
+commit 62da5b87ca7b9133b2c7b5a72fbb2b81f6cfa1ab
+Author: LM_code <webmaster@super-annonce.fr>
+Date:   Sun Aug 26 21:33:41 2012 +0200
+
+    [US] active frame Result
+    [FR] cadre résultat actif
+
+commit 0db7ef236eedb8443dc15e2c971fa5c4593d52b6
+Author: LM_code <webmaster@super-annonce.fr>
+Date:   Sun Aug 19 00:03:02 2012 +0200
+
+    [US] Creation of loan packages and a list in interfarce
+    [FR] Creation des formules de prêt et d'une liste dans l'interfarce
+
+commit e1f6415a1e79110c8e4893338f2a1a591ea4b49a
+Author: LM_code <webmaster@super-annonce.fr>
+Date:   Fri Aug 17 21:02:02 2012 +0200
+
+    [US] First commit
+    [FR] Premier commit

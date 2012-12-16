@@ -1,0 +1,25 @@
+Immo
+~~~~
+
+Immo is a software of simulation credit for the help to the acquisition of
+ immovable property.
+
+Installation
+~~~~~~~~~~~~
+
+The installation remains classic, you just check the presence of the GTK libraries.
+
+. / configure & & make & & make install
+
+Contact
+~~~~~~~
+
+Web Page: http://meurillon.laurent.free.fr/
+
+Any comments, questions, patches and changes should be submitted to
+
+Meurillon Laurent
+webmaster@super-annonce.fr
+
+Thank you
+

@@ -1,14 +1,16 @@
-AC_PREREQ(2.66)
-
 #définit les informations sur le programme
-AC_INIT([Immo],
-        [0.8.1],
+AC_PREREQ(2.67)
+
+# Définit les informations sur le programme
+AC_INIT([immo],
+        [0.8.2],
         [webmaster@super-annonce.fr])
 
 #initialisation d'automake pour le programme
 AM_INIT_AUTOMAKE(AC_PACKAGE_NAME, AC_PACKAGE_VERSION)
 AM_CONFIG_HEADER(config.h)
 
+#Recherche des compilateurs
 AC_PROG_CC
 AM_PROG_CC_C_O
 
@@ -26,6 +28,7 @@ AC_SUBST(GTK_LIBS)
 #fichier Makefile à générer
 AC_CONFIG_FILES([
     Makefile 
+    src/Makefile 
     data/Makefile
     data/immo.desktop
     data/icons/Makefile
@@ -34,7 +37,6 @@ AC_CONFIG_FILES([
     data/icons/hicolor/48x48/apps/Makefile
     data/icons/hicolor/scalable/Makefile
     data/icons/hicolor/scalable/apps/Makefile
-    src/Makefile 
              ])
 
 #générer les Makefiles

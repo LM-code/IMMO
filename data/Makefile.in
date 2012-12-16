@@ -38,7 +38,7 @@ subdir = data
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in \
 	$(srcdir)/immo.desktop.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
-am__aclocal_m4_deps = $(top_srcdir)/configure.in
+am__aclocal_m4_deps = $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 mkinstalldirs = $(install_sh) -d
@@ -149,8 +149,11 @@ sysconfdir = @sysconfdir@
 target_alias = @target_alias@
 SUBDIRS = icons
 desktopdir = $(datadir)/applications
-desktop_DATA = immo.desktop
+desktop_in_files = immo.desktop.in
+desktop_DATA = $(desktop_in_files:.desktop.in=.desktop)
 UPDATE_DESKTOP = update-desktop-database $(datadir)/applications || :
+EXTRA_DIST = $(desktop_in_files)
+DISTCLEANFILES = $(desktop_DATA)
 all: all-recursive
 
 .SUFFIXES:
@@ -406,6 +409,7 @@ clean-generic:
 
 distclean-generic:
 	-test -z "$(CONFIG_CLEAN_FILES)" || rm -f $(CONFIG_CLEAN_FILES)
+	-test -z "$(DISTCLEANFILES)" || rm -f $(DISTCLEANFILES)
 
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"

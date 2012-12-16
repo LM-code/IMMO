@@ -4,7 +4,7 @@
 #define TITRE_FENETRE "-- Calcul de votre prêt immobilier --"
 #define LARGEUR_FENETRE 700
 #define HAUTEUR_FENETRE 700
-#define ICONE "images/immo.png"
+#define ICONE "/usr/local/share/icons/hicolor/48x48/apps/immo.png"
 
 // Définition de la structure de la fenêtre principale
 struct ELEMENT
