@@ -1,0 +1,14 @@
+Source: immo
+Section: misc
+Priority: extra
+Maintainer: meurillon laurent <webmaster@super-annonce.fr>
+Build-Depends: debhelper (>= 7.0.50~)
+Standards-Version: 3.9.2
+Homepage: http://meurillon.laurent.free.fr/
+Vcs-Git: git://github.com/LM-code/IMMO.git
+Vcs-Browser: https://github.com/LM-code/IMMO.git
+
+Package: immo
+Architecture: i386
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Immo is a software of simulation credit for the help to the acquisition of immovable property.
